@@ -1,16 +1,19 @@
 :root {
-  --bg: #0b0c0e;
-  --surface: #121417;
-  --surface-light: #191c20;
-  --text: #f3f0e8;
-  --muted: #969a9f;
-  --line: rgba(243, 240, 232, 0.15);
-  --accent: #c7ff3d;
-  --accent-dark: #0c1500;
+  --paper: #f2eee5;
+  --paper-bright: #faf8f2;
+  --wash: #e8e5dc;
+  --ink: #202622;
+  --ink-soft: #4e5751;
+  --muted: #7b817a;
+  --line: rgba(32, 38, 34, 0.18);
+  --line-light: rgba(250, 248, 242, 0.2);
+  --vermilion: #b64b3e;
+  --vermilion-deep: #84352e;
+  --indigo: #344b5b;
   --max-width: 1440px;
   --page-x: clamp(24px, 5vw, 80px);
-  --display: "Arial Black", "SF Pro Display", "Segoe UI", "PingFang SC",
-    "Microsoft YaHei", sans-serif;
+  --display: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK SC",
+    "Songti SC", "STSong", "SimSun", serif;
   --body: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei",
     sans-serif;
   --mono: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -27,20 +30,35 @@ html {
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--body);
-  line-height: 1.6;
   overflow-x: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.7;
 }
 
 body.menu-open {
   overflow: hidden;
 }
 
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(32, 38, 34, 0.018) 0,
+    rgba(32, 38, 34, 0.018) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+  content: "";
+}
+
 ::selection {
-  background: var(--accent);
-  color: var(--accent-dark);
+  background: var(--vermilion);
+  color: var(--paper-bright);
 }
 
 a {
@@ -62,9 +80,9 @@ svg {
   top: 12px;
   left: 12px;
   z-index: 200;
-  padding: 10px 16px;
-  background: var(--accent);
-  color: var(--accent-dark);
+  padding: 9px 14px;
+  background: var(--ink);
+  color: var(--paper-bright);
   transform: translateY(-150%);
   transition: transform 180ms ease;
 }
@@ -79,6 +97,7 @@ svg {
   z-index: 100;
   pointer-events: none;
   opacity: 0.035;
+  mix-blend-mode: multiply;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
 }
 
@@ -98,9 +117,9 @@ svg {
   left: 50%;
   z-index: 90;
   display: flex;
+  height: 88px;
   align-items: center;
   justify-content: space-between;
-  height: 88px;
   transform: translateX(-50%);
   transition: height 240ms ease, background 240ms ease, border-color 240ms ease;
 }
@@ -109,19 +128,19 @@ svg {
   width: 100%;
   max-width: none;
   height: 68px;
-  background: rgba(11, 12, 14, 0.82);
   border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(18px);
+  background: rgba(242, 238, 229, 0.9);
+  backdrop-filter: blur(16px);
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
+  gap: 10px;
   font-family: var(--display);
   font-size: 16px;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .brand-mark {
@@ -129,12 +148,25 @@ svg {
   width: 30px;
   height: 30px;
   place-items: center;
-  border-radius: 50%;
-  background: var(--accent);
-  color: var(--accent-dark);
+  border: 1px solid var(--vermilion-deep);
+  border-radius: 2px;
+  background: var(--vermilion);
+  color: var(--paper-bright);
   font-family: var(--display);
   font-size: 15px;
-  font-weight: 800;
+  font-weight: 700;
+}
+
+.brand-sub {
+  margin-left: 4px;
+  padding-left: 10px;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  writing-mode: vertical-rl;
 }
 
 .site-nav {
@@ -145,9 +177,9 @@ svg {
 
 .site-nav a {
   position: relative;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.08em;
   transition: color 180ms ease;
 }
@@ -155,10 +187,10 @@ svg {
 .site-nav a::after {
   position: absolute;
   right: 0;
-  bottom: -7px;
+  bottom: -8px;
   left: 0;
   height: 1px;
-  background: var(--accent);
+  background: var(--vermilion);
   content: "";
   transform: scaleX(0);
   transform-origin: right;
@@ -167,7 +199,7 @@ svg {
 
 .site-nav a:hover,
 .site-nav a:focus-visible {
-  color: var(--text);
+  color: var(--vermilion-deep);
 }
 
 .site-nav a:hover::after,
@@ -183,7 +215,7 @@ svg {
   padding: 12px 9px;
   border: 0;
   background: none;
-  color: var(--text);
+  color: var(--ink);
   cursor: pointer;
 }
 
@@ -201,8 +233,8 @@ svg {
   display: grid;
   min-height: 100svh;
   padding-top: 130px;
-  padding-bottom: 70px;
-  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  padding-bottom: 72px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
   align-items: center;
   gap: clamp(40px, 7vw, 120px);
 }
@@ -215,6 +247,18 @@ svg {
   height: 1px;
   background: var(--line);
   content: "";
+}
+
+.hero::after {
+  position: absolute;
+  top: 170px;
+  right: var(--page-x);
+  color: var(--vermilion);
+  content: "观察 / 验证 / 迭代";
+  font-family: var(--display);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  writing-mode: vertical-rl;
 }
 
 .eyebrow,
@@ -232,14 +276,14 @@ svg {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 0 0 24px;
-  color: var(--accent);
-  font-size: 11px;
-  letter-spacing: 0.14em;
+  margin: 0 0 26px;
+  color: var(--vermilion);
+  font-size: 10px;
+  letter-spacing: 0.13em;
 }
 
 .eyebrow::before {
-  width: 32px;
+  width: 28px;
   height: 1px;
   background: currentColor;
   content: "";
@@ -252,53 +296,53 @@ svg {
 .contact h2 {
   margin: 0;
   font-family: var(--display);
-  font-weight: 700;
-  letter-spacing: -0.065em;
-  line-height: 1.08;
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 1.16;
 }
 
 .hero h1 {
   max-width: 820px;
-  font-size: clamp(52px, 6.3vw, 104px);
+  font-size: clamp(52px, 6.3vw, 100px);
 }
 
 .hero h1 span,
 .manifesto h2 span,
 .now-heading h2 span,
 .contact h2 span {
-  color: var(--accent);
+  color: var(--vermilion);
 }
 
 .hero-intro {
-  max-width: 520px;
-  margin: 32px 0 0;
-  color: var(--muted);
-  font-size: clamp(15px, 1.35vw, 18px);
-  line-height: 1.9;
+  max-width: 650px;
+  margin: 34px 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(14px, 1.25vw, 17px);
+  line-height: 2;
 }
 
 .hero-intro strong {
-  color: var(--text);
-  font-weight: 600;
+  color: var(--ink);
+  font-weight: 650;
 }
 
 .hero-actions {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 30px;
   margin-top: 38px;
 }
 
 .button {
   display: inline-flex;
+  min-height: 52px;
   align-items: center;
   justify-content: center;
   gap: 28px;
-  min-height: 54px;
-  padding: 0 26px;
-  border: 1px solid transparent;
-  font-size: 14px;
-  font-weight: 600;
+  padding: 0 24px;
+  border: 1px solid var(--vermilion-deep);
+  font-size: 13px;
+  font-weight: 650;
   transition: background 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
@@ -313,26 +357,26 @@ svg {
 }
 
 .button-primary {
-  background: var(--accent);
-  color: var(--accent-dark);
+  background: var(--vermilion);
+  color: var(--paper-bright);
 }
 
 .button-primary:hover,
 .button-primary:focus-visible {
-  background: var(--text);
+  background: var(--vermilion-deep);
   transform: translateY(-3px);
 }
 
 .text-link {
-  color: var(--muted);
+  color: var(--ink-soft);
   font-family: var(--mono);
-  font-size: 12px;
+  font-size: 11px;
   transition: color 180ms ease;
 }
 
 .text-link:hover,
 .text-link:focus-visible {
-  color: var(--accent);
+  color: var(--vermilion);
 }
 
 .hero-visual {
@@ -347,7 +391,6 @@ svg {
   position: absolute;
   top: 50%;
   left: 50%;
-  border-radius: 50%;
   transform: translate(-50%, -50%);
 }
 
@@ -361,28 +404,33 @@ svg {
   left: 50%;
   width: 7px;
   height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 24px 5px rgba(199, 255, 61, 0.32);
+  background: var(--vermilion);
   content: "";
+  transform: rotate(45deg);
 }
 
 .orbit-one {
-  width: 100%;
-  height: 100%;
-  animation: spin 22s linear infinite;
+  width: 94%;
+  height: 82%;
+  border-radius: 48% 52% 45% 55%;
+  transform: translate(-50%, -50%) rotate(-9deg);
+  animation: drift 18s ease-in-out infinite alternate;
 }
 
 .orbit-two {
   width: 72%;
-  height: 72%;
+  height: 92%;
   border-style: dashed;
-  animation: spin-reverse 18s linear infinite;
+  border-radius: 46% 54% 52% 48%;
+  transform: translate(-50%, -50%) rotate(13deg);
+  animation: drift-reverse 22s ease-in-out infinite alternate;
 }
 
 .orbit-three {
-  width: 43%;
-  height: 43%;
+  width: 44%;
+  height: 44%;
+  border-color: rgba(182, 75, 62, 0.35);
+  border-radius: 50%;
 }
 
 .visual-core {
@@ -390,50 +438,52 @@ svg {
   width: 29%;
   aspect-ratio: 1;
   place-items: center;
-  background: var(--accent);
-  box-shadow: 0 0 100px rgba(199, 255, 61, 0.14);
-  color: var(--accent-dark);
+  border: 8px solid var(--paper);
+  outline: 1px solid var(--vermilion-deep);
+  background: var(--vermilion);
+  color: var(--paper-bright);
+  box-shadow: 10px 10px 0 rgba(52, 75, 91, 0.12);
 }
 
 .visual-core span {
   font-family: var(--display);
   font-size: clamp(42px, 6vw, 76px);
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .visual-label {
   position: absolute;
   padding: 5px 9px;
-  background: var(--bg);
   border: 1px solid var(--line);
-  color: var(--muted);
+  background: var(--paper);
+  color: var(--ink-soft);
   font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 0.15em;
+  font-size: 8px;
+  letter-spacing: 0.08em;
 }
 
 .label-one {
-  top: 10%;
-  left: 17%;
+  top: 8%;
+  left: 13%;
 }
 
 .label-two {
-  top: 51%;
-  right: -2%;
+  top: 52%;
+  right: -3%;
 }
 
 .label-three {
-  bottom: 8%;
-  left: 22%;
+  bottom: 7%;
+  left: 20%;
 }
 
 .hero-meta {
   position: absolute;
-  bottom: 35px;
+  bottom: 36px;
   left: var(--page-x);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 15px;
   color: var(--muted);
   font-size: 9px;
   letter-spacing: 0.16em;
@@ -452,9 +502,9 @@ svg {
   position: absolute;
   width: 22px;
   height: 100%;
-  background: var(--accent);
+  background: var(--vermilion);
   content: "";
-  animation: scan 2s ease-in-out infinite;
+  animation: scan 2.2s ease-in-out infinite;
 }
 
 .section {
@@ -477,14 +527,14 @@ svg {
 }
 
 .section-index span:first-child {
-  color: var(--accent);
+  color: var(--vermilion);
 }
 
 .section-kicker {
   margin: 0 0 26px;
-  color: var(--muted);
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  color: var(--indigo);
+  font-size: 10px;
+  letter-spacing: 0.09em;
 }
 
 .manifesto h2,
@@ -502,6 +552,7 @@ svg {
   margin-top: clamp(68px, 9vw, 130px);
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
+  background: rgba(250, 248, 242, 0.32);
   grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
 }
 
@@ -512,7 +563,7 @@ svg {
 
 .profile-label {
   margin: 0 0 22px;
-  color: var(--accent);
+  color: var(--vermilion);
   font-family: var(--mono);
   font-size: 9px;
   letter-spacing: 0.14em;
@@ -522,7 +573,7 @@ svg {
   margin: 0 0 30px;
   font-family: var(--display);
   font-size: clamp(28px, 3vw, 42px);
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: -0.04em;
   line-height: 1.1;
 }
@@ -534,14 +585,14 @@ svg {
   font-family: var(--mono);
   font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .profile-copy {
   max-width: 670px;
   margin: 0;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 15px;
   line-height: 2;
 }
@@ -562,14 +613,14 @@ svg {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-family: var(--mono);
   font-size: 9px;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
 }
 
 .method-chain span:not(:last-child)::after {
-  color: var(--accent);
+  color: var(--vermilion);
   content: "→";
 }
 
@@ -601,6 +652,7 @@ svg {
 
 .meta-row dd {
   margin: 0;
+  color: var(--ink);
   font-size: 13px;
   line-height: 1.65;
 }
@@ -635,7 +687,8 @@ svg {
 .principle-motto {
   margin: 0;
   padding: 24px 0 3px 24px;
-  border-left: 1px solid var(--accent);
+  border-left: 1px solid var(--vermilion);
+  color: var(--ink-soft);
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.08em;
@@ -650,6 +703,7 @@ svg {
 
 .focus {
   grid-template-rows: auto auto;
+  background: var(--wash);
 }
 
 .section-heading {
@@ -678,7 +732,7 @@ svg {
 .focus-card:hover {
   padding-right: 28px;
   padding-left: 28px;
-  background: var(--surface);
+  background: rgba(250, 248, 242, 0.72);
 }
 
 .focus-number,
@@ -694,15 +748,15 @@ svg {
   width: 66px;
   height: 66px;
   place-items: center;
-  border: 1px solid var(--line);
+  border: 1px solid var(--vermilion);
   border-radius: 50%;
-  color: var(--accent);
+  color: var(--vermilion);
   transition: background 220ms ease, color 220ms ease, transform 220ms ease;
 }
 
 .focus-card:hover .focus-icon {
-  background: var(--accent);
-  color: var(--accent-dark);
+  background: var(--vermilion);
+  color: var(--paper-bright);
   transform: rotate(10deg);
 }
 
@@ -720,6 +774,7 @@ svg {
   margin: 0;
   font-family: var(--display);
   font-size: clamp(21px, 2vw, 28px);
+  font-weight: 600;
   letter-spacing: -0.035em;
 }
 
@@ -729,13 +784,24 @@ svg {
 
 .focus-description {
   margin: 0;
-  color: var(--muted);
+  color: var(--ink-soft);
   font-size: 14px;
   line-height: 1.9;
 }
 
 .now {
-  background: var(--surface);
+  background: var(--indigo);
+  color: var(--paper-bright);
+}
+
+.now .section-index,
+.now .section-kicker,
+.now .now-status {
+  color: #d8a39a;
+}
+
+.now .section-index span:first-child {
+  color: #ed8b7b;
 }
 
 .now-layout {
@@ -750,12 +816,16 @@ svg {
   align-self: start;
 }
 
+.now-heading h2 span {
+  color: #ed8b7b;
+}
+
 .now-item {
   position: relative;
   display: grid;
   min-height: 180px;
   padding: 12px 0 38px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--line-light);
   grid-template-columns: 25px 1fr auto;
   gap: 18px;
 }
@@ -770,7 +840,7 @@ svg {
   height: 14px;
   margin-top: 8px;
   place-items: center;
-  border: 1px solid var(--accent);
+  border: 1px solid #ed8b7b;
   border-radius: 50%;
 }
 
@@ -778,51 +848,45 @@ svg {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--accent);
+  background: #ed8b7b;
   animation: pulse 2s ease-in-out infinite;
 }
 
 .status-muted {
-  border-color: var(--muted);
+  border-color: rgba(250, 248, 242, 0.55);
 }
 
 .status-muted span {
-  background: var(--muted);
+  background: rgba(250, 248, 242, 0.55);
   animation: none;
-}
-
-.now-status {
-  margin: 0 0 14px;
-  color: var(--accent);
-  font-size: 9px;
-  letter-spacing: 0.12em;
 }
 
 .now-item > div > p:last-child {
   margin: 14px 0 0;
-  color: var(--muted);
+  color: rgba(250, 248, 242, 0.7);
   font-size: 13px;
 }
 
 .now-tag {
   align-self: start;
   padding: 5px 9px;
-  border: 1px solid var(--line);
-  color: var(--muted);
+  border: 1px solid rgba(250, 248, 242, 0.3);
+  color: rgba(250, 248, 242, 0.7);
   font-size: 8px;
   letter-spacing: 0.14em;
 }
 
 .contact {
   position: relative;
-  min-height: min(92svh, 900px);
   display: flex;
+  min-height: min(92svh, 900px);
   padding-top: 120px;
   padding-bottom: 120px;
+  overflow: hidden;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  background: var(--paper);
   text-align: center;
 }
 
@@ -844,7 +908,8 @@ svg {
   gap: 22px;
   margin-top: 52px;
   padding: 18px 0;
-  border-bottom: 1px solid var(--accent);
+  border-bottom: 1px solid var(--vermilion);
+  color: var(--ink-soft);
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.06em;
@@ -854,7 +919,7 @@ svg {
 .contact-link:hover,
 .contact-link:focus-visible {
   gap: 34px;
-  color: var(--accent);
+  color: var(--vermilion);
 }
 
 .contact-link svg {
@@ -891,14 +956,15 @@ svg {
 .contact-orbit::after {
   width: 38%;
   height: 38%;
-  background: rgba(199, 255, 61, 0.025);
-  box-shadow: 0 0 120px rgba(199, 255, 61, 0.08);
+  background: rgba(182, 75, 62, 0.04);
+  box-shadow: 0 0 120px rgba(182, 75, 62, 0.1);
 }
 
 .site-footer {
   display: grid;
   min-height: 120px;
   border-top: 1px solid var(--line);
+  background: var(--paper);
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
 }
@@ -918,7 +984,7 @@ svg {
 
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(22px);
   transition: opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1),
     transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1);
 }
@@ -928,15 +994,15 @@ svg {
   transform: translateY(0);
 }
 
-@keyframes spin {
+@keyframes drift {
   to {
-    transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(-3deg) scale(1.02);
   }
 }
 
-@keyframes spin-reverse {
+@keyframes drift-reverse {
   to {
-    transform: translate(-50%, -50%) rotate(-360deg);
+    transform: translate(-50%, -50%) rotate(7deg) scale(0.98);
   }
 }
 
@@ -951,7 +1017,7 @@ svg {
 
 @keyframes pulse {
   50% {
-    box-shadow: 0 0 0 7px rgba(199, 255, 61, 0.1);
+    box-shadow: 0 0 0 7px rgba(237, 139, 123, 0.16);
   }
 }
 
@@ -1020,8 +1086,18 @@ svg {
     transform: none;
   }
 
+  .site-header.is-scrolled {
+    height: 64px;
+  }
+
   .hero::before {
     top: 72px;
+  }
+
+  .hero::after {
+    top: 122px;
+    right: 20px;
+    font-size: 8px;
   }
 
   .menu-button {
@@ -1045,7 +1121,7 @@ svg {
     width: 100vw;
     height: 100dvh;
     padding: 112px var(--page-x) 50px;
-    background: rgba(11, 12, 14, 0.98);
+    background: rgba(242, 238, 229, 0.98);
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
@@ -1061,10 +1137,10 @@ svg {
   }
 
   .site-nav a {
-    color: var(--text);
+    color: var(--ink);
     font-family: var(--display);
     font-size: 32px;
-    font-weight: 700;
+    font-weight: 600;
     letter-spacing: -0.04em;
   }
 
@@ -1093,6 +1169,10 @@ svg {
   .hero-visual {
     width: min(92vw, 430px);
     margin-top: 30px;
+  }
+
+  .visual-label {
+    font-size: 7px;
   }
 
   .section {
@@ -1194,7 +1274,7 @@ svg {
   }
 
   .site-footer {
-    min-height: 190px;
+    min-height: 210px;
     padding-top: 40px;
     padding-bottom: 40px;
     grid-template-columns: 1fr;
