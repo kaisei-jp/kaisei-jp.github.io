@@ -605,6 +605,15 @@ svg {
   line-height: 1.65;
 }
 
+.meta-row dd span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
 .research-principle {
   display: grid;
   margin-top: clamp(58px, 7vw, 96px);
