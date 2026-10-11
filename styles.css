@@ -1309,3 +1309,38 @@ svg {
     transform: none;
   }
 }
+
+/* Contact section */
+
+.contact-intro {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 20px 0 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.contact-links {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  margin-top: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.contact-links .contact-link {
+  margin-top: 0;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.contact-links .contact-link:hover,
+.contact-links .contact-link:focus-visible {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper-bright);
+}
