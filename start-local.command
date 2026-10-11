@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 
 port="${1:-8000}"
-echo "IseiKa 本地预览已启动："
+echo "kaisei 本地预览已启动："
 echo "  首页：     http://127.0.0.1:${port}/"
 echo "  赴日计划： http://127.0.0.1:${port}/plan.html"
 echo ""

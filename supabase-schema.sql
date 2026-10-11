@@ -1,4 +1,4 @@
--- IseiKa 赴日计划：Supabase 数据库与 Storage 初始化脚本
+-- kaisei 赴日计划：Supabase 数据库与 Storage 初始化脚本
 -- 请在 Supabase Dashboard → SQL Editor 中完整执行一次。
 -- 本脚本不会创建或暴露 service_role key。
 
