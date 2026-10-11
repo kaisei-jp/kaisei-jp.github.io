@@ -11,7 +11,7 @@
 这是网站的本地开发目录，同时连接到 GitHub Pages 仓库：
 
 ```text
-/Users/yizho/Documents/ChatGPT/kaisei-jp.github.io
+/Users/yizho/Desktop/kaisei-jp.github.io
 ```
 
 主要页面：
@@ -26,7 +26,7 @@
 ## 本地预览
 
 ```bash
-cd "/Users/yizho/Documents/ChatGPT/kaisei-jp.github.io"
+cd "/Users/yizho/Desktop/kaisei-jp.github.io"
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
