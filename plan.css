@@ -442,12 +442,12 @@
 
 .milestones-heading {
   max-width: 740px;
-  margin-left: clamp(64px, 10vw, 164px);
+  margin-left: 0;
 }
 
 .milestone-grid {
   display: grid;
-  margin: 70px 0 0 clamp(64px, 10vw, 164px);
+  margin: 70px 0 0;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
