@@ -5,8 +5,8 @@
  * 这两个值会出现在网页源代码中，真正的安全边界由 Supabase 的 RLS 策略保证。
  */
 window.SUPABASE_CONFIG = Object.freeze({
-  url: "",
-  anonKey: "",
+  url: "https://fmdvswiotkrdglsilgrc.supabase.co",
+  anonKey: "sb_publishable_ZQ0rDJOsKGcJlqey1HtK6w_MHpsbmam",
   bucket: "milestone-proofs",
   maxFileSize: 10 * 1024 * 1024,
 });
