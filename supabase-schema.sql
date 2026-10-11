@@ -23,7 +23,18 @@ create policy "Admin can inspect own membership"
 create table if not exists public.milestone_assets (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
-  milestone_key text not null check (milestone_key in ('master', 'graduation', 'career', 'long-term')),
+  milestone_key text not null check (
+    milestone_key in (
+      'bachelor',
+      'master',
+      'db-engineer',
+      'jlpt-n1',
+      'jtest',
+      'graduation',
+      'career',
+      'long-term'
+    )
+  ),
   file_path text not null unique,
   file_name text not null,
   mime_type text not null,
