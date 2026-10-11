@@ -45,3 +45,28 @@ git push origin main
 ```
 
 推送后，GitHub Pages 会自动构建并更新公网页面。
+
+## Supabase 云端记录配置
+
+赴日计划页已经接入登录、图片上传、云端记录和多设备同步。第一次使用时需要配置自己的 Supabase 项目：
+
+1. 在 Supabase 创建一个项目。
+2. 打开 SQL Editor，执行本目录的 `supabase-schema.sql`。
+3. 在 Authentication → Users 中创建你的账户，并关闭公开注册（这样只有你本人可以上传和删除记录）。
+4. 在 Project Settings → API 中复制 Project URL 和 publishable/anon key，填写到 `supabase-config.js`：
+
+   ```js
+   window.SUPABASE_CONFIG = Object.freeze({
+     url: "https://你的项目.supabase.co",
+     anonKey: "你的 publishable/anon key",
+     bucket: "milestone-proofs",
+     maxFileSize: 10 * 1024 * 1024,
+   });
+   ```
+
+5. 在 Authentication 的 URL 配置中加入：
+   - `http://127.0.0.1:8000/plan.html`
+   - `https://2206113885.github.io/plan.html`
+6. 提交并推送代码，打开赴日计划页登录后即可上传图片。
+
+浏览器端只能使用 publishable/anon key，不能使用 service_role key。里程碑图片所在的 bucket 是公开读取的，因此适合上传证书、成果截图等公开内容，不要上传身份证件、护照或其他私人文件。
