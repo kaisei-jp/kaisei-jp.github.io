@@ -248,9 +248,9 @@
             <div class="milestone-card-top"><span>2024.09</span><span class="milestone-status done">已完成</span></div>
             <h3>进入南京大学软件工程硕士阶段</h3>
             <p>开始把软件工程课程、论文与自己的长期规划联系起来。</p>
-            <div class="proof-slot" data-proof-slot="master">
+            <div class="proof-slot" data-proof-slot="master" hidden>
               <div class="proof-slot-copy"><span>成果记录</span><span>课程项目 · 论文 · 证书</span></div>
-              <button class="proof-upload" type="button" data-upload-trigger data-milestone="master">登录后上传</button>
+              <button class="proof-upload" type="button" data-upload-trigger data-milestone="master" hidden>上传成果图片</button>
               <input class="proof-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-file-input data-milestone="master" />
               <div class="proof-assets" data-proof-assets aria-live="polite"></div>
             </div>
@@ -259,9 +259,9 @@
             <div class="milestone-card-top"><span>2027.06</span><span class="milestone-status next">目标节点</span></div>
             <h3>完成硕士学业</h3>
             <p>完成论文与研究积累，为东京或首都圈的职业选择做好准备。</p>
-            <div class="proof-slot" data-proof-slot="graduation">
+            <div class="proof-slot" data-proof-slot="graduation" hidden>
               <div class="proof-slot-copy"><span>成果记录</span><span>论文 · 答辩 · 学位</span></div>
-              <button class="proof-upload" type="button" data-upload-trigger data-milestone="graduation">登录后上传</button>
+              <button class="proof-upload" type="button" data-upload-trigger data-milestone="graduation" hidden>上传成果图片</button>
               <input class="proof-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-file-input data-milestone="graduation" />
               <div class="proof-assets" data-proof-assets aria-live="polite"></div>
             </div>
@@ -270,9 +270,9 @@
             <div class="milestone-card-top"><span>2027 →</span><span class="milestone-status next">目标节点</span></div>
             <h3>进入日本软件 / IT / 系统开发岗位</h3>
             <p>把硕士阶段的学习积累转化为工程实践，在真实组织中持续学习与积累。</p>
-            <div class="proof-slot" data-proof-slot="career">
+            <div class="proof-slot" data-proof-slot="career" hidden>
               <div class="proof-slot-copy"><span>成果记录</span><span>Offer · 在留资格 · 入职</span></div>
-              <button class="proof-upload" type="button" data-upload-trigger data-milestone="career">登录后上传</button>
+              <button class="proof-upload" type="button" data-upload-trigger data-milestone="career" hidden>上传成果图片</button>
               <input class="proof-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-file-input data-milestone="career" />
               <div class="proof-assets" data-proof-assets aria-live="polite"></div>
             </div>
@@ -281,9 +281,9 @@
             <div class="milestone-card-top"><span>LONG TERM</span><span class="milestone-status horizon">远期</span></div>
             <h3>从工作走向 MBA 与博士</h3>
             <p>在技术、组织与经济问题之间继续追问，形成下一阶段的学习与研究路径。</p>
-            <div class="proof-slot" data-proof-slot="long-term">
+            <div class="proof-slot" data-proof-slot="long-term" hidden>
               <div class="proof-slot-copy"><span>成果记录</span><span>申请 · 录取 · 研究</span></div>
-              <button class="proof-upload" type="button" data-upload-trigger data-milestone="long-term">登录后上传</button>
+              <button class="proof-upload" type="button" data-upload-trigger data-milestone="long-term" hidden>上传成果图片</button>
               <input class="proof-file-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" data-file-input data-milestone="long-term" />
               <div class="proof-assets" data-proof-assets aria-live="polite"></div>
             </div>
@@ -296,25 +296,7 @@
         <div class="log-copy reveal">
           <p class="eyebrow">NEXT CHAPTER · CLOUD LOG</p>
           <h2 id="log-title">把今天存下来，<br /><span>明天会看见路。</span></h2>
-          <p>登录后可以直接为每个成长节点上传图片。记录会保存到 Supabase，并在不同设备上同步显示。</p>
-          <div class="cloud-auth" data-auth-panel>
-            <form class="auth-form" data-login-form>
-              <label>
-                <span>邮箱</span>
-                <input type="email" autocomplete="email" placeholder="your@email.com" data-auth-email required />
-              </label>
-              <label>
-                <span>密码</span>
-                <input type="password" autocomplete="current-password" placeholder="Supabase 登录密码" minlength="6" data-auth-password required />
-              </label>
-              <button class="button button-light" type="submit" data-login-button>登录并管理记录</button>
-            </form>
-            <div class="auth-session" data-session-panel hidden>
-              <p>已登录：<strong data-auth-user></strong></p>
-              <button class="auth-signout" type="button" data-signout-button>退出登录</button>
-            </div>
-            <p class="cloud-status" role="status" aria-live="polite" data-auth-message></p>
-          </div>
+          <p>每一张留在这里的图片，都是走过一段路的证明。新的记录会在这里与所有设备同步出现。</p>
           <a class="button button-light" href="#milestones">
             回到里程碑
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></svg>

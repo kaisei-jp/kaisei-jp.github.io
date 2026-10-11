@@ -1025,3 +1025,55 @@
     transition: none;
   }
 }
+
+.admin-main {
+  display: grid;
+  min-height: 100svh;
+  width: min(100%, var(--max-width));
+  margin-inline: auto;
+  padding: 142px var(--page-x) 84px;
+  place-items: center;
+}
+
+.admin-card {
+  width: min(100%, 680px);
+  padding: clamp(28px, 5vw, 64px);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.admin-card h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(40px, 5.2vw, 66px);
+  font-weight: 620;
+  letter-spacing: -0.08em;
+  line-height: 1.16;
+}
+
+.admin-card h1 span {
+  color: var(--blue-deep);
+}
+
+.admin-intro {
+  max-width: 500px;
+  margin: 22px 0 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.admin-card .cloud-auth {
+  max-width: none;
+  margin-top: 32px;
+}
+
+.admin-open {
+  width: fit-content;
+}
+
+.admin-back {
+  display: inline-block;
+  margin-top: 32px;
+}

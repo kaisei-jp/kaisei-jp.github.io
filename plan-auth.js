@@ -9,6 +9,7 @@
   const authMessage = document.querySelector("[data-auth-message]");
   const loginButton = document.querySelector("[data-login-button]");
   const signoutButton = document.querySelector("[data-signout-button]");
+  const adminLink = document.querySelector("[data-admin-link]");
   const emailInput = document.querySelector("[data-auth-email]");
   const passwordInput = document.querySelector("[data-auth-password]");
   const uploadTriggers = [...document.querySelectorAll("[data-upload-trigger]")];
@@ -33,8 +34,11 @@
 
   const state = {
     session: null,
+    isAdmin: false,
     assets: [],
   };
+  let authRevision = 0;
+  let signingIn = false;
 
   const setMessage = (message, tone = "") => {
     if (!authMessage) return;
@@ -50,14 +54,19 @@
     });
   };
 
-  const updateUploadLabels = () => {
+  const updateUploadControls = () => {
     uploadTriggers.forEach((button) => {
-      button.textContent = state.session ? "上传成果图片" : "登录后上传";
+      button.hidden = !state.isAdmin;
+      button.disabled = !state.isAdmin;
     });
+    fileInputs.forEach((input) => {
+      input.disabled = !state.isAdmin;
+    });
+    if (adminLink) adminLink.hidden = !state.isAdmin;
   };
 
   const updateAuthPanel = () => {
-    updateUploadLabels();
+    updateUploadControls();
     if (!loginForm || !sessionPanel) return;
 
     const loggedIn = Boolean(state.session);
@@ -97,6 +106,7 @@
 
       assetContainer.replaceChildren();
       const assets = state.assets.filter((asset) => asset.milestone_key === key);
+      slot.hidden = !state.isAdmin && assets.length === 0;
       if (!assets.length) return;
 
       assets.forEach((asset) => {
@@ -118,7 +128,7 @@
           ),
         );
 
-        if (state.session?.user?.id === asset.user_id) {
+        if (state.isAdmin) {
           const removeButton = document.createElement("button");
           removeButton.type = "button";
           removeButton.className = "asset-delete";
@@ -168,9 +178,8 @@
     input.value = "";
     if (!file) return;
 
-    if (!client || !state.session) {
-      setMessage("请先登录，再上传里程碑成果。", "error");
-      emailInput?.focus();
+    if (!client || !state.session || !state.isAdmin) {
+      setMessage("只有管理员可以上传里程碑成果。", "error");
       return;
     }
 
@@ -227,7 +236,7 @@
   };
 
   const removeAsset = async (asset, item) => {
-    if (!client || !state.session || state.session.user.id !== asset.user_id) return;
+    if (!client || !state.session || !state.isAdmin) return;
     if (!window.confirm(`确定删除“${asset.file_name || "这张图片"}”吗？`)) return;
 
     setBusy(true);
@@ -242,8 +251,7 @@
     const { error: recordError } = await client
       .from("milestone_assets")
       .delete()
-      .eq("id", asset.id)
-      .eq("user_id", state.session.user.id);
+      .eq("id", asset.id);
     if (recordError) {
       setBusy(false);
       setMessage(`图片已删除，但记录清理失败：${recordError.message}`, "error");
@@ -256,11 +264,42 @@
     setMessage("记录已删除。", "success");
   };
 
+  const refreshSession = async (session) => {
+    const revision = ++authRevision;
+    let permissionError = false;
+    state.session = session;
+    state.isAdmin = false;
+    updateAuthPanel();
+    renderAssets();
+
+    if (session?.user?.id) {
+      const { data, error } = await client
+        .from("site_admins")
+        .select("user_id")
+        .eq("user_id", session.user.id)
+        .maybeSingle();
+
+      if (revision !== authRevision) return;
+      if (error) {
+        permissionError = true;
+        setMessage("管理员权限检查失败。请确认已执行最新的 Supabase SQL 脚本。", "error");
+      }
+      state.isAdmin = Boolean(data && !error);
+    }
+
+    if (revision !== authRevision) return;
+    updateAuthPanel();
+    renderAssets();
+    if (document.querySelector("[data-proof-slot]")) await loadAssets();
+    return { allowed: state.isAdmin, error: permissionError };
+  };
+
   const signIn = async (event) => {
     event.preventDefault();
     if (!client) return;
 
     setBusy(true);
+    signingIn = true;
     setMessage("正在登录……");
     const { data, error } = await client.auth.signInWithPassword({
       email: emailInput.value.trim(),
@@ -269,14 +308,20 @@
     setBusy(false);
 
     if (error) {
+      signingIn = false;
       setMessage(`登录失败：${error.message}`, "error");
       return;
     }
 
-    state.session = data.session;
-    updateAuthPanel();
-    await loadAssets();
-    setMessage("登录成功，可以为任意里程碑上传图片。", "success");
+    const permission = await refreshSession(data.session);
+    signingIn = false;
+    if (permission?.error) {
+      setMessage("管理员权限检查失败。请先在 Supabase SQL Editor 执行最新脚本。", "error");
+    } else if (permission?.allowed) {
+      setMessage("管理员登录成功。打开里程碑页面即可上传图片。", "success");
+    } else {
+      setMessage("此账号没有管理员权限。请检查 site_admins 中是否已加入你的用户 ID。", "error");
+    }
   };
 
   const signOut = async () => {
@@ -288,32 +333,26 @@
       setMessage(`退出登录失败：${error.message}`, "error");
       return;
     }
-    state.session = null;
-    state.assets = [];
-    updateAuthPanel();
-    renderAssets();
+    await refreshSession(null);
     setMessage("已退出登录。", "success");
   };
 
-  if (!authPanel) return;
-
   if (!hasSupabase) {
     if (loginForm) loginForm.hidden = true;
-    setMessage("Supabase 尚未配置：请在 supabase-config.js 填入项目 URL 和 publishable/anon key。", "warning");
-    updateUploadLabels();
+    if (authPanel) setMessage("Supabase 尚未配置。", "warning");
+    updateAuthPanel();
+    renderAssets();
     return;
   }
 
+  updateAuthPanel();
+  renderAssets();
   loginForm?.addEventListener("submit", signIn);
   signoutButton?.addEventListener("click", signOut);
 
   uploadTriggers.forEach((button) => {
     button.addEventListener("click", () => {
-      if (!state.session) {
-        setMessage("请先登录，再上传里程碑成果。", "error");
-        emailInput?.focus();
-        return;
-      }
+      if (!state.isAdmin) return;
       document.querySelector(`[data-file-input][data-milestone="${button.dataset.milestone}"]`)?.click();
     });
   });
@@ -327,14 +366,11 @@
       setMessage(`读取登录状态失败：${error.message}`, "error");
       return;
     }
-    state.session = data.session;
-    updateAuthPanel();
-    loadAssets();
+    refreshSession(data.session);
   });
 
   client.auth.onAuthStateChange((_event, session) => {
-    state.session = session;
-    updateAuthPanel();
-    if (session) loadAssets();
+    if (signingIn) return;
+    setTimeout(() => refreshSession(session), 0);
   });
 })();

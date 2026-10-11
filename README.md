@@ -14,8 +14,9 @@
 
 主要页面：
 
-- `index.html`：个人研究主页
+- `index.html`：个人成长主页
 - `plan.html`：赴日计划 / 里程碑页面
+- `admin.html`：不在公开导航中显示的管理员登录入口
 - `styles.css`：主页与共用样式
 - `plan.css`：赴日计划页面样式
 - `script.js`：导航、滚动与渐入动画
@@ -48,12 +49,23 @@ git push origin main
 
 ## Supabase 云端记录配置
 
-赴日计划页已经接入登录、图片上传、云端记录和多设备同步。第一次使用时需要配置自己的 Supabase 项目：
+公开的赴日计划页只展示已上传的成果。管理员通过独立入口登录后，才能在里程碑卡片上看到上传与删除按钮。账号密码是 Supabase Authentication 中的用户账号，并非 GitHub 或 Supabase Dashboard 的登录密码。
 
-1. 在 Supabase 创建一个项目。
-2. 打开 SQL Editor，执行本目录的 `supabase-schema.sql`。
-3. 在 Authentication → Users 中创建你的账户，并关闭公开注册（这样只有你本人可以上传和删除记录）。
-4. 在 Project Settings → API 中复制 Project URL 和 publishable/anon key，填写到 `supabase-config.js`：
+首次启用或从旧版升级时：
+
+1. 在 Supabase Dashboard → Authentication → Users 创建或邀请自己的用户账号，设置登录密码。若账号尚不存在，先完成这一步。
+2. 在 SQL Editor 完整执行本目录的 `supabase-schema.sql`。脚本会创建管理员名单，并将数据库和 Storage 的写入权限收紧为管理员专用。
+3. 在 SQL Editor 单独执行下面的语句，把 `你的登录邮箱` 换成第 1 步的邮箱：
+
+   ```sql
+   insert into public.site_admins (user_id)
+   select id from auth.users where email = '你的登录邮箱'
+   on conflict (user_id) do nothing;
+   ```
+
+   可用 `select count(*) from public.site_admins;` 确认结果为 `1`。不要把你的密码写进 SQL、网页代码或 Git 仓库。
+4. 在 Authentication 设置中关闭「Allow new users to sign up」。管理员名单仍由数据库策略单独校验；关闭注册可避免无关账号产生。
+5. 在 Project Settings → API 中复制 Project URL 和 publishable/anon key，填写到 `supabase-config.js`（当前项目已完成）：
 
    ```js
    window.SUPABASE_CONFIG = Object.freeze({
@@ -64,9 +76,10 @@ git push origin main
    });
    ```
 
-5. 在 Authentication 的 URL 配置中加入：
+6. 如使用邮件邀请或重置密码，在 Authentication 的 URL 配置中加入：
    - `http://127.0.0.1:8000/plan.html`
    - `https://2206113885.github.io/plan.html`
-6. 提交并推送代码，打开赴日计划页登录后即可上传图片。
+   - `https://2206113885.github.io/admin.html`
+7. 打开 `https://2206113885.github.io/admin.html` 登录，然后点击「打开里程碑，上传图片」。
 
-浏览器端只能使用 publishable/anon key，不能使用 service_role key。里程碑图片所在的 bucket 是公开读取的，因此适合上传证书、成果截图等公开内容，不要上传身份证件、护照或其他私人文件。
+管理员页面没有出现在网站导航中，但它的 URL 本身是公开可访问的；真正限制上传和删除的是 Supabase Authentication、`site_admins` 名单与 RLS 策略。浏览器端只能使用 publishable/anon key，不能使用 secret/service_role key。图片 bucket 公开读取，适合上传愿意公开展示的成果截图，不要上传身份证件、护照或其他私人文件。

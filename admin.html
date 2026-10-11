@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="#fafaf8" />
+    <title>里程碑管理 · IseiKa</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="plan.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="plan-auth.js" defer></script>
+  </head>
+  <body class="plan-page admin-page">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="IseiKa 首页">
+        <span class="brand-mark">I</span>
+        <span>IseiKa</span>
+        <span class="brand-sub">旅程记录</span>
+      </a>
+    </header>
+    <main class="admin-main" id="main-content">
+      <section class="admin-card" aria-labelledby="admin-title">
+        <p class="section-kicker">PRIVATE AREA / 管理入口</p>
+        <h1 id="admin-title">给这段旅程，<br /><span>添上今天的一页。</span></h1>
+        <p class="admin-intro">使用你在 Supabase 中创建的管理员账号登录。登录并通过权限检查后，再打开里程碑页面上传图片。</p>
+        <div class="cloud-auth" data-auth-panel>
+          <form class="auth-form" data-login-form>
+            <label>
+              <span>邮箱</span>
+              <input type="email" autocomplete="username" placeholder="你的登录邮箱" data-auth-email required />
+            </label>
+            <label>
+              <span>密码</span>
+              <input type="password" autocomplete="current-password" placeholder="你的登录密码" minlength="6" data-auth-password required />
+            </label>
+            <button class="button button-light" type="submit" data-login-button>登录管理</button>
+          </form>
+          <div class="auth-session" data-session-panel hidden>
+            <p>已登录：<strong data-auth-user></strong></p>
+            <button class="auth-signout" type="button" data-signout-button>退出登录</button>
+          </div>
+          <p class="cloud-status" role="status" aria-live="polite" data-auth-message></p>
+          <a class="button button-light admin-open" href="plan.html#milestones" data-admin-link hidden>打开里程碑，上传图片</a>
+        </div>
+        <a class="text-link admin-back" href="plan.html">← 返回梦想记录</a>
+      </section>
+    </main>
+  </body>
+</html>
