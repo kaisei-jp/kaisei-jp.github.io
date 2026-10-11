@@ -178,6 +178,7 @@
 .roadmap-heading {
   max-width: 740px;
   margin-left: clamp(72px, 13vw, 190px);
+  grid-column: 2;
 }
 
 .roadmap-heading h2,
@@ -204,6 +205,7 @@
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
   grid-template-columns: repeat(6, 1fr);
+  grid-column: 2;
 }
 
 .plan-index a {
@@ -244,6 +246,7 @@
   position: relative;
   margin-left: clamp(72px, 13vw, 190px);
   border-top: 1px solid var(--line);
+  grid-column: 2;
 }
 
 .roadmap-list::before {
@@ -403,6 +406,7 @@
 .milestones-heading {
   max-width: 740px;
   margin-left: clamp(72px, 13vw, 190px);
+  grid-column: 2;
 }
 
 .milestone-grid {
@@ -410,6 +414,7 @@
   margin: 66px 0 0 clamp(72px, 13vw, 190px);
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
+  grid-column: 2;
 }
 
 .milestone-card {
