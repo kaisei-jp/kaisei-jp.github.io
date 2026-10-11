@@ -497,50 +497,146 @@ svg {
   max-width: 1040px;
 }
 
-.about-grid {
+.research-profile {
   display: grid;
   margin-top: clamp(68px, 9vw, 130px);
-  grid-template-columns: minmax(240px, 0.75fr) minmax(320px, 1.25fr);
-  gap: clamp(50px, 10vw, 160px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
 }
 
-.about-grid > p {
+.research-bio {
+  padding: 48px clamp(36px, 5vw, 72px) 48px 0;
+  border-right: 1px solid var(--line);
+}
+
+.profile-label {
+  margin: 0 0 22px;
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+}
+
+.profile-name {
+  margin: 0 0 30px;
+  font-family: var(--display);
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.profile-name span {
+  display: block;
+  margin-top: 10px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.profile-copy {
+  max-width: 670px;
   margin: 0;
   color: var(--muted);
   font-size: 15px;
   line-height: 2;
 }
 
-.about-grid blockquote {
-  position: relative;
-  margin: 0;
-  padding-left: clamp(28px, 5vw, 76px);
-  border-left: 1px solid var(--accent);
-  font-family: var(--display);
-  font-size: clamp(32px, 4vw, 60px);
-  font-weight: 600;
-  letter-spacing: -0.05em;
-  line-height: 1.25;
+.profile-copy + .profile-copy {
+  margin-top: 14px;
 }
 
-.about-grid blockquote > span {
-  position: absolute;
-  top: -24px;
-  left: 18px;
-  color: var(--accent);
-  font-size: 70px;
-  font-weight: 300;
+.method-chain {
+  display: flex;
+  margin-top: 40px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.about-grid cite {
-  display: block;
-  margin-top: 24px;
+.method-chain span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
   color: var(--muted);
   font-family: var(--mono);
-  font-size: 10px;
-  font-style: normal;
-  font-weight: 400;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.method-chain span:not(:last-child)::after {
+  color: var(--accent);
+  content: "→";
+}
+
+.research-meta {
+  margin: 0;
+  padding: 24px 0 24px clamp(32px, 4vw, 58px);
+}
+
+.meta-row {
+  display: grid;
+  min-height: 92px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  grid-template-columns: 0.55fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+
+.meta-row:last-child {
+  border-bottom: 0;
+}
+
+.meta-row dt {
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 9px;
   letter-spacing: 0.12em;
+}
+
+.meta-row dd {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.research-principle {
+  display: grid;
+  margin-top: clamp(58px, 7vw, 96px);
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  align-items: end;
+  gap: clamp(50px, 8vw, 120px);
+}
+
+.principle-copy {
+  max-width: 760px;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(21px, 2.2vw, 30px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.65;
+}
+
+.principle-motto {
+  margin: 0;
+  padding: 24px 0 3px 24px;
+  border-left: 1px solid var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+
+.principle-motto span {
+  display: block;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 9px;
 }
 
 .focus {
@@ -873,9 +969,20 @@ svg {
     gap: 30px;
   }
 
-  .about-grid,
+  .research-profile,
+  .research-principle,
   .now-layout {
     grid-template-columns: 1fr;
+  }
+
+  .research-bio {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .research-meta {
+    padding-left: 0;
+    border-top: 1px solid var(--line);
   }
 
   .now-heading {
@@ -993,17 +1100,30 @@ svg {
     font-size: clamp(36px, 10vw, 52px);
   }
 
-  .about-grid {
+  .research-profile {
     margin-top: 60px;
-    gap: 52px;
   }
 
-  .about-grid blockquote {
-    padding-left: 28px;
+  .research-bio {
+    padding-top: 36px;
+    padding-bottom: 36px;
   }
 
-  .about-grid blockquote > span {
+  .method-chain {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .method-chain span:not(:last-child)::after {
     display: none;
+  }
+
+  .meta-row {
+    grid-template-columns: 0.8fr 1.2fr;
+  }
+
+  .research-principle {
+    gap: 42px;
   }
 
   .section-heading {
