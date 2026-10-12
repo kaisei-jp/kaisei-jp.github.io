@@ -535,10 +535,12 @@ svg {
 }
 
 #about-title {
-  font-family: "Hiragino Sans", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+  /* Use a Simplified-Chinese font consistently; avoid Japanese-glyph fallback. */
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", sans-serif;
   font-size: clamp(36px, 3.4vw, 48px);
   font-weight: 700;
-  letter-spacing: -0.05em;
+  letter-spacing: 0;
+  font-variant-east-asian: simplified;
   line-height: 1.2;
 }
 
