@@ -294,7 +294,7 @@ svg {
   max-width: 800px;
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(50px, 7vw, 102px);
+  font-size: clamp(48px, 6.2vw, 88px);
   font-weight: 620;
   letter-spacing: -0.09em;
   line-height: 1.08;
@@ -1183,7 +1183,7 @@ svg {
   }
 
   .hero h1 {
-    font-size: clamp(45px, 13vw, 70px);
+    font-size: clamp(40px, 12vw, 64px);
   }
 
   .hero-intro br {
