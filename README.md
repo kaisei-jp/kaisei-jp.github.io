@@ -16,8 +16,13 @@
 
 主要页面：
 
-- `index.html`：个人成长主页
-- `plan.html`：赴日计划 / 里程碑页面
+- `index.html`：个人成长首页
+- `about.html`：个人简介与教育经历
+- `research.html`：研究与项目
+- `plan.html`：赴日计划
+- `milestones.html`：成长里程碑与公开成果图片
+- `now.html`：最近进度
+- `contact.html`：联系方式
 - `admin.html`：不在公开导航中显示的管理员登录入口
 - `styles.css`：主页与共用样式
 - `plan.css`：赴日计划页面样式
@@ -34,6 +39,8 @@ python3 -m http.server 8000 --bind 127.0.0.1
 
 - `http://localhost:8000/`
 - `http://localhost:8000/plan.html`
+- `http://localhost:8000/milestones.html`
+- `http://localhost:8000/admin.html`
 
 macOS 用户也可以直接双击 `start-local.command` 启动本地预览。
 
@@ -51,7 +58,7 @@ git push origin main
 
 ## Supabase 云端记录配置
 
-公开的赴日计划页只展示已上传的成果。管理员通过独立入口登录后，才能在里程碑卡片上看到上传与删除按钮。账号密码是 Supabase Authentication 中的用户账号，并非 GitHub 或 Supabase Dashboard 的登录密码。
+公开的成长里程碑页 `milestones.html` 只展示里程碑内容和已上传的图片。管理员通过独立后台 `admin.html` 登录后，可直接管理八个里程碑的图片上传与删除。账号密码是 Supabase Authentication 中的用户账号，并非 GitHub 或 Supabase Dashboard 的登录密码。
 
 首次启用或从旧版升级时：
 
@@ -79,9 +86,8 @@ git push origin main
    ```
 
 6. 如使用邮件邀请或重置密码，在 Authentication 的 URL 配置中加入：
-   - `http://127.0.0.1:8000/plan.html`
-   - `https://kaisei-jp.github.io/plan.html`
+   - `http://127.0.0.1:8000/admin.html`
    - `https://kaisei-jp.github.io/admin.html`
-7. 打开 `https://kaisei-jp.github.io/admin.html` 登录，然后点击「打开里程碑，上传图片」。
+7. 打开 `https://kaisei-jp.github.io/admin.html` 登录，在对应的里程碑卡片中直接上传或删除图片；上传后的公开展示可在 `https://kaisei-jp.github.io/milestones.html` 查看。
 
 管理员页面没有出现在网站导航中，但它的 URL 本身是公开可访问的；真正限制上传和删除的是 Supabase Authentication、`site_admins` 名单与 RLS 策略。浏览器端只能使用 publishable/anon key，不能使用 secret/service_role key。图片 bucket 公开读取，适合上传愿意公开展示的成果截图，不要上传身份证件、护照或其他私人文件。
