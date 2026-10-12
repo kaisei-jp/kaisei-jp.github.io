@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2eee5" />
+    <meta
+      name="description"
+      content="kaisei 的成长里程碑，记录已完成的成就和未来目标。"
+    />
+    <meta property="og:title" content="成长里程碑 · kaisei" />
+    <meta
+      property="og:description"
+      content="记录已完成的成就和未来的重要目标。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kaisei-jp.github.io/milestones.html" />
+    <link rel="canonical" href="https://kaisei-jp.github.io/milestones.html" />
+    <title>成长里程碑 · kaisei</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23b64b3e%22/><text x=%2250%22 y=%2268%22 text-anchor=%22middle%22 font-size=%2260%22 font-family=%22Arial%22 font-weight=%22900%22 fill=%22%23faf8f2%22>K</text></svg>"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="plan.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="supabase-config.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="plan-auth.js" defer></script>
+  </head>
+
+  <body class="plan-page milestones-page">
+    <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header" data-header>
+      <a class="brand" href="index.html" aria-label="kaisei 首页">
+        <span class="brand-mark">K</span>
+        <span>kaisei</span>
+        <span class="brand-sub">旅程记录</span>
+      </a>
+
+      <button
+        class="menu-button"
+        type="button"
+        aria-label="打开导航"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        data-menu-button
+      >
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="主导航" data-nav>
+        <a href="index.html">01 首页</a>
+        <a href="index.html#about">02 关于我</a>
+        <a href="plan.html">03 赴日计划</a>
+        <a href="milestones.html" aria-current="page">04 成长里程碑</a>
+        <a href="index.html#contact">05 联系</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="milestones section" id="milestones" aria-labelledby="milestones-title">
+        <div class="section-index reveal">
+          <span>02</span>
+          <span>MILESTONES</span>
+        </div>
+
+        <div class="milestones-heading reveal">
+          <p class="section-kicker">MILESTONES / 成长里程碑</p>
+          <h2 id="milestones-title">成长里程碑</h2>
+          <p>记录已完成的重要成果，以及下一阶段的主要目标。</p>
+        </div>
+
+        <div class="milestone-grid">
+          <!-- 01 本科毕业 -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2024.07</span>
+              <span class="milestone-status done">已完成</span>
+            </div>
+            <h3>西安交通大学本科毕业</h3>
+            <p>完成软件工程专业本科学业，取得学士学位。</p>
+
+            <div class="proof-slot" data-proof-slot="bachelor" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 02 硕士入学：保留原有 master 标识 -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2024.09</span>
+              <span class="milestone-status done">已完成</span>
+            </div>
+            <h3>进入南京大学硕士阶段</h3>
+            <p>开始南京大学软件工程硕士阶段的学习与研究。</p>
+
+            <div class="proof-slot" data-proof-slot="master" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 03 数据库系统工程师 -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2026.05</span>
+              <span class="milestone-status done">已完成</span>
+            </div>
+            <h3>数据库系统工程师</h3>
+            <p>通过全国计算机技术与软件专业技术资格考试。</p>
+
+            <div class="proof-slot" data-proof-slot="db-engineer" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 04 JLPT N1 -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2026.07</span>
+              <span class="milestone-status done">已完成</span>
+            </div>
+            <h3>通过 JLPT N1</h3>
+            <p>2026 年 7 月日语能力考试，取得 135 分。</p>
+
+            <div class="proof-slot" data-proof-slot="jlpt-n1" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 05 J.TEST -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2026.07</span>
+              <span class="milestone-status done">已完成</span>
+            </div>
+            <h3>J.TEST 準A級</h3>
+            <p>第 187 回 J.TEST A–C 级考试，取得 880 分。</p>
+
+            <div class="proof-slot" data-proof-slot="jtest" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 06 硕士毕业：保留原有 graduation 标识 -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2027.06</span>
+              <span class="milestone-status next">目标</span>
+            </div>
+            <h3>南京大学硕士毕业</h3>
+            <p>计划于 2027 年 6 月完成软件工程硕士学业。</p>
+
+            <div class="proof-slot" data-proof-slot="graduation" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 07 日本就业：保留原有 career 标识 -->
+          <article class="milestone-card reveal">
+            <div class="milestone-card-top">
+              <span>2027</span>
+              <span class="milestone-status next">目标</span>
+            </div>
+            <h3>在日本开始软件开发工作</h3>
+            <p>计划毕业后在东京或首都圈进入软件开发相关岗位。</p>
+
+            <div class="proof-slot" data-proof-slot="career" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+
+          <!-- 08 长期深造：保留原有 long-term 标识 -->
+          <article class="milestone-card milestone-card-future reveal">
+            <div class="milestone-card-top">
+              <span>LONG TERM</span>
+              <span class="milestone-status horizon">长期目标</span>
+            </div>
+            <h3>京都大学 MBA 与博士深造</h3>
+            <p>计划在日本积累工作经验后攻读京都大学 MBA，并继续探索博士阶段的学习与研究。</p>
+
+            <div class="proof-slot" data-proof-slot="long-term" hidden>
+              <div class="proof-assets" data-proof-assets
+                aria-live="polite"></div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand" href="index.html" aria-label="回到首页">
+        <span class="brand-mark">K</span>
+        <span>kaisei</span>
+        <span class="brand-sub">旅程记录</span>
+      </a>
+      <p>生则日勤 · 死则永息</p>
+      <p class="copyright">© <span data-year></span> kaisei</p>
+    </footer>
+  </body>
+</html>

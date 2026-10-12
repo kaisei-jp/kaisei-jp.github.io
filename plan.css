@@ -1131,3 +1131,74 @@
     gap: 12px;
   }
 }
+
+/* Public gallery page: room for titles and uncropped evidence photos. */
+.milestones-page .milestones {
+  display: block;
+  min-height: 100svh;
+  padding-top: 160px;
+  padding-bottom: 110px;
+}
+
+.milestones-page .milestones-heading {
+  max-width: 840px;
+  margin-left: 0;
+}
+
+.milestones-page .milestone-grid {
+  margin: 50px 0 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 24px;
+}
+
+.milestones-page .milestone-card {
+  min-width: 0;
+  min-height: 260px;
+  padding: clamp(22px, 3vw, 34px);
+}
+
+.milestones-page .milestone-card h3 {
+  margin: 28px 0 14px;
+  font-size: clamp(23px, 2.6vw, 32px);
+}
+
+.milestones-page .milestone-card p {
+  font-size: 14px;
+}
+
+.milestones-page .proof-slot {
+  margin-top: 24px;
+}
+
+.milestones-page .proof-assets {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+
+.milestones-page .proof-asset img {
+  width: 100%;
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.milestones-page .proof-asset-link {
+  display: block;
+}
+
+.milestones-page .proof-asset figcaption {
+  padding: 10px 12px;
+}
+
+@media (max-width: 760px) {
+  .milestones-page .milestones {
+    padding-top: 116px;
+    padding-bottom: 76px;
+  }
+  .milestones-page .milestone-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+}

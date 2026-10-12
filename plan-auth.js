@@ -142,7 +142,15 @@
           caption.append(removeButton);
         }
 
-        item.append(image, caption);
+        // Open the original in a separate tab; the gallery itself never crops it.
+        const originalLink = document.createElement("a");
+        originalLink.href = asset.public_url;
+        originalLink.target = "_blank";
+        originalLink.rel = "noopener noreferrer";
+        originalLink.className = "proof-asset-link";
+        originalLink.setAttribute("aria-label", "查看原始成果图片");
+        originalLink.append(image);
+        item.append(originalLink, caption);
         assetContainer.append(item);
       });
     });
