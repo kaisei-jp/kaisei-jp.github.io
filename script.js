@@ -1,27 +1,36 @@
 const header = document.querySelector("[data-header]");
 const menuButton = document.querySelector("[data-menu-button]");
 const nav = document.querySelector("[data-nav]");
-const navLinks = nav.querySelectorAll("a");
+const navLinks = nav?.querySelectorAll("a") ?? [];
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const setMenuOpen = (isOpen) => {
+  if (!menuButton || !nav) return;
   menuButton.setAttribute("aria-expanded", String(isOpen));
   menuButton.setAttribute("aria-label", isOpen ? "关闭导航" : "打开导航");
   nav.classList.toggle("is-open", isOpen);
   document.body.classList.toggle("menu-open", isOpen);
 };
 
-menuButton.addEventListener("click", () => {
-  setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
-});
+if (menuButton && nav) {
+  menuButton.addEventListener("click", () => {
+    setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+  });
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", () => setMenuOpen(false));
-});
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => setMenuOpen(false));
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || menuButton.getAttribute("aria-expanded") !== "true") return;
+    setMenuOpen(false);
+    menuButton.focus();
+  });
+}
 
 window.addEventListener(
   "scroll",
-  () => header.classList.toggle("is-scrolled", window.scrollY > 24),
+  () => header?.classList.toggle("is-scrolled", window.scrollY > 24),
   { passive: true },
 );
 
@@ -47,4 +56,5 @@ if (reduceMotion || !("IntersectionObserver" in window)) {
   });
 }
 
-document.querySelector("[data-year]").textContent = new Date().getFullYear();
+const year = document.querySelector("[data-year]");
+if (year) year.textContent = new Date().getFullYear();

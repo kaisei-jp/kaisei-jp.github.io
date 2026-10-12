@@ -178,16 +178,16 @@ svg {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .site-nav a {
-  padding: 8px 11px;
+  padding: 8px 8px;
   border: 1px solid transparent;
   border-radius: 999px;
   color: var(--ink-soft);
   font-family: var(--body);
-  font-size: 11px;
+  font-size: 10px;
   transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
@@ -555,9 +555,13 @@ svg {
   grid-column: 2;
 }
 
+.manifesto h1,
 .manifesto h2,
+.section-heading h1,
 .section-heading h2,
+.now-heading h1,
 .now-heading h2,
+.contact h1,
 .contact h2 {
   margin: 0;
   font-family: var(--display);
@@ -792,6 +796,7 @@ svg {
   stroke-width: 1.7;
 }
 
+.focus-card h2,
 .focus-card h3 {
   margin: 0 0 4px;
   font-family: var(--display);
@@ -909,6 +914,7 @@ svg {
   letter-spacing: 0.1em;
 }
 
+.now-item h2,
 .now-item h3 {
   margin: 0;
   color: var(--ink);
@@ -984,6 +990,14 @@ svg {
   background: var(--coral);
   color: var(--paper-bright);
   transform: translateY(-2px);
+}
+
+.contact-page {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.contact-page > *:not(.contact-orbit) {
+  grid-column: 1;
 }
 
 .site-footer {
@@ -1077,11 +1091,7 @@ svg {
   }
 }
 
-@media (max-width: 720px) {
-  :root {
-    --page-x: 20px;
-  }
-
+@media (max-width: 900px) {
   .site-header {
     left: 0;
     width: 100%;
@@ -1091,6 +1101,7 @@ svg {
 
   .site-header.is-scrolled {
     height: 62px;
+    backdrop-filter: none;
   }
 
   .menu-button {
@@ -1109,24 +1120,30 @@ svg {
 
   .site-nav {
     position: fixed;
+    z-index: 1;
     inset: 0;
     display: flex;
     width: 100vw;
     height: 100dvh;
-    padding: 110px var(--page-x) 50px;
+    max-height: 100dvh;
+    padding: 100px var(--page-x) calc(24px + env(safe-area-inset-bottom));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: rgba(250, 250, 248, 0.98);
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 14px;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 4px;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 200ms ease;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
   }
 
   .site-nav.is-open {
     opacity: 1;
     pointer-events: auto;
+    visibility: visible;
   }
 
   .site-nav a {
@@ -1137,7 +1154,7 @@ svg {
     border-radius: 0;
     color: var(--ink);
     font-family: var(--display);
-    font-size: 27px;
+    font-size: clamp(21px, 3vw, 27px);
     font-weight: 560;
     letter-spacing: -0.05em;
   }
@@ -1152,6 +1169,12 @@ svg {
 
   .brand-sub {
     display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --page-x: 20px;
   }
 
   .hero {
@@ -1195,9 +1218,13 @@ svg {
     margin-bottom: 42px;
   }
 
+  .manifesto h1,
   .manifesto h2,
+  .section-heading h1,
   .section-heading h2,
+  .now-heading h1,
   .now-heading h2,
+  .contact h1,
   .contact h2 {
     font-size: clamp(35px, 10vw, 54px);
   }
