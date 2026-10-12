@@ -9,7 +9,8 @@
   const authMessage = document.querySelector("[data-auth-message]");
   const loginButton = document.querySelector("[data-login-button]");
   const signoutButton = document.querySelector("[data-signout-button]");
-  const adminLink = document.querySelector("[data-admin-link]");
+  const adminManager = document.querySelector("[data-admin-manager]");
+  const isAdminPage = document.body.classList.contains("admin-page");
   const emailInput = document.querySelector("[data-auth-email]");
   const passwordInput = document.querySelector("[data-auth-password]");
   const uploadTriggers = [...document.querySelectorAll("[data-upload-trigger]")];
@@ -46,6 +47,8 @@
     authMessage.dataset.tone = tone;
   };
 
+  const canManageMilestones = () => isAdminPage && state.isAdmin;
+
   const setBusy = (isBusy) => {
     if (loginButton) loginButton.disabled = isBusy;
     if (signoutButton) signoutButton.disabled = isBusy;
@@ -55,14 +58,15 @@
   };
 
   const updateUploadControls = () => {
+    const canManage = canManageMilestones();
     uploadTriggers.forEach((button) => {
-      button.hidden = !state.isAdmin;
-      button.disabled = !state.isAdmin;
+      button.hidden = !canManage;
+      button.disabled = !canManage;
     });
     fileInputs.forEach((input) => {
-      input.disabled = !state.isAdmin;
+      input.disabled = !canManage;
     });
-    if (adminLink) adminLink.hidden = !state.isAdmin;
+    if (adminManager) adminManager.hidden = !canManage;
   };
 
   const updateAuthPanel = () => {
@@ -99,6 +103,7 @@
   };
 
   const renderAssets = () => {
+    const canManage = canManageMilestones();
     document.querySelectorAll("[data-proof-slot]").forEach((slot) => {
       const key = slot.dataset.proofSlot;
       const assetContainer = slot.querySelector("[data-proof-assets]");
@@ -106,7 +111,7 @@
 
       assetContainer.replaceChildren();
       const assets = state.assets.filter((asset) => asset.milestone_key === key);
-      slot.hidden = !state.isAdmin && assets.length === 0;
+      slot.hidden = !canManage && assets.length === 0;
       if (!assets.length) return;
 
       assets.forEach((asset) => {
@@ -128,7 +133,7 @@
           ),
         );
 
-        if (state.isAdmin) {
+        if (canManage) {
           const removeButton = document.createElement("button");
           removeButton.type = "button";
           removeButton.className = "asset-delete";
@@ -178,7 +183,7 @@
     input.value = "";
     if (!file) return;
 
-    if (!client || !state.session || !state.isAdmin) {
+    if (!client || !state.session || !canManageMilestones()) {
       setMessage("只有管理员可以上传里程碑成果。", "error");
       return;
     }
@@ -236,7 +241,7 @@
   };
 
   const removeAsset = async (asset, item) => {
-    if (!client || !state.session || !state.isAdmin) return;
+    if (!client || !state.session || !canManageMilestones()) return;
     if (!window.confirm(`确定删除“${asset.file_name || "这张图片"}”吗？`)) return;
 
     setBusy(true);
@@ -272,7 +277,7 @@
     updateAuthPanel();
     renderAssets();
 
-    if (session?.user?.id) {
+    if (isAdminPage && session?.user?.id) {
       const { data, error } = await client
         .from("site_admins")
         .select("user_id")
@@ -318,9 +323,9 @@
     if (permission?.error) {
       setMessage("管理员权限检查失败。请先在 Supabase SQL Editor 执行最新脚本。", "error");
     } else if (permission?.allowed) {
-      setMessage("管理员登录成功。打开里程碑页面即可上传图片。", "success");
+      setMessage("管理员登录成功，已开放本后台的里程碑图片管理。", "success");
     } else {
-      setMessage("此账号没有管理员权限。请检查 site_admins 中是否已加入你的用户 ID。", "error");
+      setMessage("此账号没有管理员权限，无法管理里程碑图片。请检查 site_admins 中是否已加入你的用户 ID。", "error");
     }
   };
 
