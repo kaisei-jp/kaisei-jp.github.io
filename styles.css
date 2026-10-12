@@ -534,11 +534,12 @@ svg {
   background: var(--paper-bright);
 }
 
-.manifesto h1 {
+#about-title {
   font-family: "Hiragino Sans", "Noto Sans CJK SC", "PingFang SC", "Microsoft YaHei", sans-serif;
-  font-size: clamp(38px, 4.1vw, 56px);
+  font-size: clamp(36px, 3.4vw, 48px);
   font-weight: 700;
-  letter-spacing: -0.065em;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
 }
 
 .manifesto .section-kicker {
