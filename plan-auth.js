@@ -129,7 +129,7 @@
           createText(
             "span",
             "proof-asset-meta",
-            `${formatDate(asset.created_at)} · ${formatFileSize(asset.file_size || 0)}`,
+            formatDate(asset.created_at),
           ),
         );
 
